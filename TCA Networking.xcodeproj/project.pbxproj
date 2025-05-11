@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7BAAFE5B2DD0AAC100C49FC0 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7BAAFE5A2DD0AAC100C49FC0 /* ComposableArchitecture */; };
+		7BAAFEB02DD0ACE000C49FC0 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7BAAFEAF2DD0ACE000C49FC0 /* NetworkKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		7BAAFE3D2DD0AA5800C49FC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BAAFEB02DD0ACE000C49FC0 /* NetworkKit in Frameworks */,
+				7BAAFE5B2DD0AAC100C49FC0 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,8 @@
 			);
 			name = "TCA Networking";
 			packageProductDependencies = (
+				7BAAFE5A2DD0AAC100C49FC0 /* ComposableArchitecture */,
+				7BAAFEAF2DD0ACE000C49FC0 /* NetworkKit */,
 			);
 			productName = "TCA Networking";
 			productReference = 7BAAFE2F2DD0AA5500C49FC0 /* TCA Networking.app */;
@@ -195,6 +204,10 @@
 			);
 			mainGroup = 7BAAFE262DD0AA5400C49FC0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7BAAFE592DD0AAC100C49FC0 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				7BAAFEAE2DD0ACE000C49FC0 /* XCRemoteSwiftPackageReference "NetworkKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7BAAFE302DD0AA5500C49FC0 /* Products */;
 			projectDirPath = "";
@@ -558,6 +571,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7BAAFE592DD0AAC100C49FC0 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.19.1;
+			};
+		};
+		7BAAFEAE2DD0ACE000C49FC0 /* XCRemoteSwiftPackageReference "NetworkKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Momeks/NetworkKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7BAAFE5A2DD0AAC100C49FC0 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BAAFE592DD0AAC100C49FC0 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		7BAAFEAF2DD0ACE000C49FC0 /* NetworkKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BAAFEAE2DD0ACE000C49FC0 /* XCRemoteSwiftPackageReference "NetworkKit" */;
+			productName = NetworkKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7BAAFE272DD0AA5400C49FC0 /* Project object */;
 }
