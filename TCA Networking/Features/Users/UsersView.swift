@@ -18,13 +18,21 @@ struct UsersView: View {
                     ProgressView()
                 } else {
                     List(store.users) { user in
-                        NavigationLink(state: UserDetailFeature.State(user: user)) {
+                        Button {
+                            store.send(.userTapped(user))
+                        } label: {
                             UserItem(user: user)
                         }
+                        .tint(.primary)
                     }
                 }
             }
             .navigationTitle("Users")
+            .navigationDestination(
+              store: store.scope(state: \.$userDetail, action: \.userDetail)
+            ) {
+              UserDetailView(store: $0)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("refresh", systemImage: "arrow.clockwise") {
@@ -38,9 +46,6 @@ struct UsersView: View {
         .task {
             store.send(.fetchUsers)
         }
-        .navigationDestination(store: self.store.scope(state: \.$userDetail, action: \.userDetail)) {
-            UserDetailView(store: $0)
-        }
     }
 }
 
@@ -51,3 +56,13 @@ struct UsersView: View {
         }
     )
 }
+
+//MARK: - Tips
+/*
+ NavigationLink(destination: EmptyView()) {
+     UserItem(user: user)
+ }
+ .onTapGesture {
+     store.send(.userTapped(user))
+ }
+ */
