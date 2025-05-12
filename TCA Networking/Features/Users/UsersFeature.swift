@@ -51,6 +51,7 @@ struct UsersFeature {
         var users: [User] = []
         var isLoading: Bool = false
         var errorMessage: String?
+        @Presents var userDetail: UserDetailFeature.State?
     }
     
     //MARK: - Action
@@ -58,6 +59,9 @@ struct UsersFeature {
         case fetchUsers
         case usersResponse(Result<[User], NetworkError>)
         case alertDismissed
+        case userTapped(User)
+        
+        case userDetail(PresentationAction<UserDetailFeature.Action>)
     }
     
     var body: some Reducer<State, Action> {
@@ -84,7 +88,6 @@ struct UsersFeature {
                 return .none
                 
             case .usersResponse(.failure(let error)):
-                print("❌ Network error: \(error), user message: \(error.userMessage)")
                 state.isLoading = false
                 state.errorMessage = error.userMessage
                 return .none
@@ -92,7 +95,17 @@ struct UsersFeature {
             case .alertDismissed:
                 state.errorMessage = nil
                 return .none
+            
+            case .userTapped(let user):
+                state.userDetail = UserDetailFeature.State(user: user)
+                return .none
+                
+            default:
+                return .none
             }
+        }
+        .ifLet(\.$userDetail, action: \.userDetail) {
+            UserDetailFeature()
         }
     }
 }

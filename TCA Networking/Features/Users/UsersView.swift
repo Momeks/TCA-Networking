@@ -18,9 +18,9 @@ struct UsersView: View {
                     ProgressView()
                 } else {
                     List(store.users) { user in
-                        NavigationLink(destination: Text("Hey"), label: {
+                        NavigationLink(state: UserDetailFeature.State(user: user)) {
                             UserItem(user: user)
-                        })
+                        }
                     }
                 }
             }
@@ -37,6 +37,9 @@ struct UsersView: View {
         }
         .task {
             store.send(.fetchUsers)
+        }
+        .navigationDestination(store: self.store.scope(state: \.$userDetail, action: \.userDetail)) {
+            UserDetailView(store: $0)
         }
     }
 }
