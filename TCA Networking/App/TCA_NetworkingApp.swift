@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct TCA_NetworkingApp: App {
+    static let store = Store(initialState: UsersFeature.State()) {
+        UsersFeature()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            UsersView(store: TCA_NetworkingApp.store)
         }
     }
 }

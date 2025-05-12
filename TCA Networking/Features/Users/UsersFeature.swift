@@ -73,7 +73,8 @@ struct UsersFeature {
                     } catch let error as NetworkError {
                         await send(.usersResponse(.failure(error)))
                     } catch {
-                        await send(.usersResponse(.failure(.connectionError(error))))
+                        await send(.usersResponse(.failure(.invalidResponse)))
+                        print(error.localizedDescription)
                     }
                 }
                 
@@ -83,6 +84,7 @@ struct UsersFeature {
                 return .none
                 
             case .usersResponse(.failure(let error)):
+                print("❌ Network error: \(error), user message: \(error.userMessage)")
                 state.isLoading = false
                 state.errorMessage = error.userMessage
                 return .none

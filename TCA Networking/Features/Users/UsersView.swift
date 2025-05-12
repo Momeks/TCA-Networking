@@ -6,13 +6,45 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct UsersView: View {
+    let store: StoreOf<UsersFeature>
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ZStack {
+                if store.isLoading {
+                    ProgressView()
+                } else {
+                    List(store.users) { user in
+                        NavigationLink(destination: Text("Hey"), label: {
+                            UserItem(user: user)
+                        })
+                    }
+                }
+            }
+            .navigationTitle("Users")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("refresh", systemImage: "arrow.clockwise") {
+                        Task {
+                            store.send(.fetchUsers)
+                        }
+                    }
+                }
+            }
+        }
+        .task {
+            store.send(.fetchUsers)
+        }
     }
 }
 
 #Preview {
-    UsersView()
+    UsersView(
+        store: Store(initialState: UsersFeature.State()) {
+            UsersFeature()
+        }
+    )
 }
