@@ -64,8 +64,18 @@ struct UserDetailView: View {
             .navigationTitle(store.user.name)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Action", systemImage: "ellipsis") {
+                    Menu("Actions", systemImage: "ellipsis.circle") {
+                        Button("Call", systemImage: "phone") {
+                            store.send(.onCallPhoneNumber)
+                        }
                         
+                        Button("Open Website", systemImage: "globe") {
+                            store.send(.onOpenWebsite)
+                        }
+                        
+                        Button("Open Map", systemImage: "map") {
+                            store.send(.onOpenMap)
+                        }
                     }
                 }
             }

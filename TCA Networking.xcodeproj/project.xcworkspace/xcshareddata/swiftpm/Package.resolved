@@ -1,5 +1,5 @@
 {
-  "originHash" : "ae14e33b0ef6140ae4631b56b41c96a95caf2d525c5ea3a81f35271d1990a258",
+  "originHash" : "3f23ff293dc7c4d569c2d56d170baef7d7b36afeef3257a551c631cf33a8c410",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -16,7 +16,7 @@
       "location" : "git@github.com:Momeks/NetworkKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "a06bcb845867662f05440ec4a9d821b8961e25e2"
+        "revision" : "2fb85aaaf086ce12c6441809fb57be8dfa01cba9"
       }
     },
     {

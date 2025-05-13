@@ -12,6 +12,9 @@ import MapKit
 
 @Reducer
 struct UserDetailFeature {
+    
+    @Dependency(\.openURL) var openURL
+    
     @ObservableState
     struct State: Equatable {
         var user: User
@@ -36,17 +39,28 @@ struct UserDetailFeature {
                 return .none
                 
             case .onOpenMap:
+                if let lat = Double(state.user.address.geo.lat),
+                   let lng = Double(state.user.address.geo.lng),
+                   let mapUrl = URL(string: "maps://?saddr=&daddr=\(lat),\(lng)") {
+                    return .run { _ in
+                        await openURL(mapUrl)
+                    }
+                }
                 return .none
                 
             case .onOpenWebsite:
-                if let url = URL(string: state.user.website) {
-                    UIApplication.shared.open(url, options: [:])
+                if let url = URL(string: "https://\(state.user.website)") {
+                    return .run { _ in
+                        await openURL(url)
+                    }
                 }
                 return .none
                 
             case .onCallPhoneNumber:
                 if let phoneNumber = URL(string: "tel://\(state.user.phone)") {
-                    UIApplication.shared.open(phoneNumber, options: [:])
+                    return .run { _ in
+                        await openURL(phoneNumber)
+                    }
                 }
                 return .none
             }
