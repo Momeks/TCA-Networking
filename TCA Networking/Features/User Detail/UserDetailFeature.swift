@@ -12,7 +12,6 @@ import MapKit
 
 @Reducer
 struct UserDetailFeature {
-    
     @Dependency(\.openURL) var openURL
     
     @ObservableState

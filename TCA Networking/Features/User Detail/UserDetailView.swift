@@ -11,26 +11,23 @@ import ComposableArchitecture
 
 struct UserDetailView: View {
     let store: StoreOf<UserDetailFeature>
-    private var user: User {
-        return store.user
-    }
     
     var body: some View {
         NavigationStack {
             List {
                 Section {
-                    Label(user.username, systemImage: "person.crop.circle")
-                    Label(user.email, systemImage: "at")
-                    Label(user.website, systemImage: "globe")
-                    Label(user.phone, systemImage: "phone")
+                    Label(store.user.username, systemImage: "person.crop.circle")
+                    Label(store.user.email, systemImage: "at")
+                    Label(store.user.website, systemImage: "globe")
+                    Label(store.user.phone, systemImage: "phone")
                 } header: {
                     Text("Contact Information")
                 }
                 
                 Section {
-                    Label(user.company.name, systemImage: "briefcase")
-                    Label(user.company.bs, systemImage: "text.bubble")
-                    Label(user.company.catchPhrase, systemImage: "note.text")
+                    Label(store.user.company.name, systemImage: "briefcase")
+                    Label(store.user.company.bs, systemImage: "text.bubble")
+                    Label(store.user.company.catchPhrase, systemImage: "note.text")
                 } header: {
                     Text("Company")
                 }
@@ -38,10 +35,10 @@ struct UserDetailView: View {
                 Section {
                     VStack(alignment: .leading) {
                         Label([
-                            user.address.suite,
-                            user.address.street,
-                            user.address.city,
-                            "\nZip code: \(user.address.zipcode)"
+                            store.user.address.suite,
+                            store.user.address.street,
+                            store.user.address.city,
+                            "\nZip code: \(store.user.address.zipcode)"
                         ].compactMap { $0 }.joined(separator: ", "),
                               systemImage: "building.2")
                         
