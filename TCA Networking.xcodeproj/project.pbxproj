@@ -187,6 +187,7 @@
 					};
 					7BAAFE3B2DD0AA5800C49FC0 = {
 						CreatedOnToolsVersion = 16.3;
+						LastSwiftMigration = 1630;
 						TestTargetID = 7BAAFE2E2DD0AA5500C49FC0;
 					};
 					7BAAFE452DD0AA5800C49FC0 = {
@@ -467,6 +468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6MFW8URZ6;
@@ -476,6 +478,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "tca-networking.TCA-NetworkingTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TCA NetworkingTests/TCA NetworkingTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TCA Networking.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TCA Networking";
@@ -486,6 +490,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = X6MFW8URZ6;
@@ -495,6 +500,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "tca-networking.TCA-NetworkingTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "TCA NetworkingTests/TCA NetworkingTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TCA Networking.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TCA Networking";
