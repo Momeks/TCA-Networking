@@ -29,7 +29,7 @@ struct UsersView: View {
             }
             .navigationTitle("Users")
             .navigationDestination(
-              store: store.scope(state: \.$userDetail, action: \.userDetail)
+              store: store.scope(state: \.$userDetailNavigation, action: \.userDetailNavigation)
             ) {
               UserDetailView(store: $0)
             }
@@ -58,6 +58,7 @@ struct UsersView: View {
 }
 
 //MARK: - Tips
+/// Using navigation link:
 /*
  NavigationLink(destination: EmptyView()) {
      UserItem(user: user)

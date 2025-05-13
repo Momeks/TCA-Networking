@@ -8,12 +8,14 @@
 import ComposableArchitecture
 import Foundation
 import UIKit
+import MapKit
 
 @Reducer
 struct UserDetailFeature {
     @ObservableState
     struct State: Equatable {
         var user: User
+        var coordinate: UserCoordinate?
     }
     
     enum Action {
@@ -27,6 +29,10 @@ struct UserDetailFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                if let lat = Double(state.user.address.geo.lat),
+                   let lng = Double(state.user.address.geo.lng) {
+                    state.coordinate = UserCoordinate(value: CLLocationCoordinate2D(latitude: lat, longitude: lng))
+                }
                 return .none
                 
             case .onOpenMap:
@@ -45,5 +51,14 @@ struct UserDetailFeature {
                 return .none
             }
         }
+    }
+}
+
+struct UserCoordinate: Equatable {
+    var value: CLLocationCoordinate2D
+    
+    static func == (lhs: UserCoordinate, rhs: UserCoordinate) -> Bool {
+        lhs.value.latitude == rhs.value.latitude &&
+        lhs.value.longitude == rhs.value.longitude
     }
 }

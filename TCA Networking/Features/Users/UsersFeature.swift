@@ -51,7 +51,7 @@ struct UsersFeature {
         var users: [User] = []
         var isLoading: Bool = false
         var errorMessage: String?
-        @Presents var userDetail: UserDetailFeature.State?
+        @Presents var userDetailNavigation: UserDetailFeature.State?
     }
     
     //MARK: - Action
@@ -61,7 +61,7 @@ struct UsersFeature {
         case alertDismissed
         case userTapped(User)
         
-        case userDetail(PresentationAction<UserDetailFeature.Action>)
+        case userDetailNavigation(PresentationAction<UserDetailFeature.Action>)
     }
     
     var body: some Reducer<State, Action> {
@@ -97,14 +97,14 @@ struct UsersFeature {
                 return .none
             
             case .userTapped(let user):
-                state.userDetail = UserDetailFeature.State(user: user)
+                state.userDetailNavigation = UserDetailFeature.State(user: user)
                 return .none
                 
             default:
                 return .none
             }
         }
-        .ifLet(\.$userDetail, action: \.userDetail) {
+        .ifLet(\.$userDetailNavigation, action: \.userDetailNavigation) {
             UserDetailFeature()
         }
     }
