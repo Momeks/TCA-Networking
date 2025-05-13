@@ -70,9 +70,10 @@ struct UsersFeature {
             case .fetchUsers:
                 state.isLoading = true
                 state.errorMessage = nil
-                return .run { send in
+                /// [networkService] clearly defines dependencies the closure needs, making it safer and more testable.
+                return .run { [networkService] send in
                     do {
-                        let users: [User] = try await self.networkService.fetch(from: UsersEndpoint())
+                        let users: [User] = try await networkService.fetch(from: UsersEndpoint())
                         await send(.usersResponse(.success(users)))
                     } catch let error as NetworkError {
                         await send(.usersResponse(.failure(error)))
