@@ -76,11 +76,11 @@ struct UserDetailFeature {
     }
 }
     
-    struct UserCoordinate: Equatable {
-        var value: CLLocationCoordinate2D
-        
-        static func == (lhs: UserCoordinate, rhs: UserCoordinate) -> Bool {
-            lhs.value.latitude == rhs.value.latitude &&
-            lhs.value.longitude == rhs.value.longitude
-        }
+struct UserCoordinate: Equatable {
+    var value: CLLocationCoordinate2D
+    
+    static func == (lhs: UserCoordinate, rhs: UserCoordinate) -> Bool {
+        lhs.value.latitude == rhs.value.latitude &&
+        lhs.value.longitude == rhs.value.longitude
     }
+}
