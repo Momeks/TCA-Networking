@@ -16,6 +16,10 @@ struct UsersView: View {
             ZStack {
                 if store.isLoading {
                     ProgressView()
+                } else if let errorMessage = store.errorMessage, !errorMessage.isEmpty {
+                    ContentUnavailableView("Error",
+                                           systemImage: "person.crop.circle.badge.exclamationmark",
+                                           description: Text(errorMessage))
                 } else {
                     List(store.users) { user in
                         Button {
@@ -31,10 +35,11 @@ struct UsersView: View {
             }
             .navigationTitle("Users")
             .navigationDestination(
-              store: store.scope(state: \.$userDetailNavigation, action: \.userDetailNavigation)
+                store: store.scope(state: \.$userDetailNavigation, action: \.userDetailNavigation)
             ) {
-              UserDetailView(store: $0)
+                UserDetailView(store: $0)
             }
+            .alert(store: store.scope(state: \.$alert, action: \.alert))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("refresh", systemImage: "arrow.clockwise") {
@@ -48,7 +53,6 @@ struct UsersView: View {
         .task {
             store.send(.fetchUsers)
         }
-        .alert(store: store.scope(state: \.$alert, action: \.alert))
     }
 }
 
