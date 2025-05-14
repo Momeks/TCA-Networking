@@ -9,26 +9,33 @@ import SwiftUI
 
 struct UserItem: View {
     var user: User
+    var action: (() -> Void)?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(user.name)
-                .bold()
-            
-            Text(user.username)
-                .foregroundStyle(.secondary)
-            
-            Group {
-                Label(user.phone, systemImage: "phone.fill")
-                Label(user.address.city, systemImage: "mappin")
-                Label(user.email, systemImage: "envelope.fill")
+        HStack {
+            VStack(alignment: .leading, spacing: 5) {
+                Text(user.name)
+                    .bold()
+                
+                Text(user.username)
+                    .foregroundStyle(.secondary)
+                
+                Button("Contact Info", systemImage: "info.circle") {
+                    action?()
+                }
+                .tint(.blue)
+                .imageScale(.small)
             }
-            .imageScale(.small)
-            .symbolRenderingMode(.multicolor)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.secondary)
         }
     }
 }
 
 #Preview {
     UserItem(user: User.preview)
+        .padding(.horizontal)
 }

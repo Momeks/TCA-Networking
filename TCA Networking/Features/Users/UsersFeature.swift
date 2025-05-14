@@ -51,16 +51,24 @@ struct UsersFeature {
         var users: [User] = []
         var isLoading: Bool = false
         var errorMessage: String?
+        
         @Presents var userDetailNavigation: UserDetailFeature.State?
+        @Presents var alert: AlertState<AlertAction>?
+        
+        // Alert actions
+        enum AlertAction: Equatable {
+            case dismiss
+        }
     }
     
     //MARK: - Action
     enum Action {
         case fetchUsers
         case usersResponse(Result<[User], NetworkError>)
-        case alertDismissed
         case userTapped(User)
+        case showUserAlert(User)
         
+        case alert(PresentationAction<State.AlertAction>)
         case userDetailNavigation(PresentationAction<UserDetailFeature.Action>)
     }
     
@@ -93,12 +101,24 @@ struct UsersFeature {
                 state.errorMessage = error.userMessage
                 return .none
                 
-            case .alertDismissed:
-                state.errorMessage = nil
-                return .none
-            
             case .userTapped(let user):
                 state.userDetailNavigation = UserDetailFeature.State(user: user)
+                return .none
+                
+            case .showUserAlert(let user):
+                state.alert = AlertState(title: {
+                    TextState("Contact Info")
+                }, actions: {
+                    ButtonState(role: .cancel, action: .dismiss, label: {
+                        TextState("Dismiss")
+                    })
+                }, message: {
+                    TextState("\(user.phone)\n\(user.email)")
+                })
+                return .none
+                
+            case .alert(.presented(.dismiss)):
+                state.alert = nil
                 return .none
                 
             default:
@@ -108,6 +128,7 @@ struct UsersFeature {
         .ifLet(\.$userDetailNavigation, action: \.userDetailNavigation) {
             UserDetailFeature()
         }
+        .ifLet(\.$alert, action: \.alert)
     }
 }
 

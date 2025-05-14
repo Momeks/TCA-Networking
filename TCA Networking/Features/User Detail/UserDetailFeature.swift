@@ -25,6 +25,7 @@ struct UserDetailFeature {
         case onOpenMap
         case onOpenWebsite
         case onCallPhoneNumber
+        case onSendEmail
     }
     
     var body: some Reducer<State, Action> {
@@ -62,16 +63,24 @@ struct UserDetailFeature {
                     }
                 }
                 return .none
+                
+            case .onSendEmail:
+                if let emailUrl = URL(string: "mailto:\(state.user.email)") {
+                    return .run { _ in
+                        await openURL(emailUrl)
+                    }
+                }
+                return .none
             }
         }
     }
 }
-
-struct UserCoordinate: Equatable {
-    var value: CLLocationCoordinate2D
     
-    static func == (lhs: UserCoordinate, rhs: UserCoordinate) -> Bool {
-        lhs.value.latitude == rhs.value.latitude &&
-        lhs.value.longitude == rhs.value.longitude
+    struct UserCoordinate: Equatable {
+        var value: CLLocationCoordinate2D
+        
+        static func == (lhs: UserCoordinate, rhs: UserCoordinate) -> Bool {
+            lhs.value.latitude == rhs.value.latitude &&
+            lhs.value.longitude == rhs.value.longitude
+        }
     }
-}

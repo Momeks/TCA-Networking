@@ -21,7 +21,9 @@ struct UsersView: View {
                         Button {
                             store.send(.userTapped(user))
                         } label: {
-                            UserItem(user: user)
+                            UserItem(user: user) {
+                                store.send(.showUserAlert(user))
+                            }
                         }
                         .tint(.primary)
                     }
@@ -46,6 +48,7 @@ struct UsersView: View {
         .task {
             store.send(.fetchUsers)
         }
+        .alert(store: store.scope(state: \.$alert, action: \.alert))
     }
 }
 

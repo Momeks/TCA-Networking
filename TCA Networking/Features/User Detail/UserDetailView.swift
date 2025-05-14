@@ -66,6 +66,10 @@ struct UserDetailView: View {
                             store.send(.onCallPhoneNumber)
                         }
                         
+                        Button("Send Email", systemImage: "envelope") {
+                            store.send(.onSendEmail)
+                        }
+                        
                         Button("Open Website", systemImage: "globe") {
                             store.send(.onOpenWebsite)
                         }
